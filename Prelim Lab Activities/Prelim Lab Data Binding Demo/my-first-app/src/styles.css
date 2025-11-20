@@ -1,0 +1,116 @@
+/* Global Styles */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100vh;
+  width: 100vw;
+}
+
+body {
+  background-color: black;
+}
+
+.cv-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 4rem;
+  font-family: 'Inter Tight', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-image: url('app/assets/bg_dungca.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-color: black;
+  color: white;
+  line-height: 1.6;
+}
+
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .cv-container {
+    padding: 30px 25px;
+  }
+
+  .name {
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+  }
+
+  .contact-info {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .separator {
+    display: none;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .section-title {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cv-container {
+    padding: 20px 15px;
+  }
+
+  .name {
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+  }
+
+  .contact-info {
+    font-size: 0.85rem;
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+  }
+
+  .profile-text,
+  .skills-list li,
+  .tech-items {
+    font-size: 0.9rem;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .cv-container {
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  .name {
+    font-size: 2.5rem;
+  }
+
+  .section-title {
+    page-break-after: avoid;
+  }
+
+  .profile-section,
+  .skills-section,
+  .technical-skills {
+    page-break-inside: avoid;
+  }
+}
+
+
