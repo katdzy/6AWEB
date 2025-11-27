@@ -1,0 +1,28 @@
+h1 {
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: 20px;
+}
+
+h2, h3, h4, p {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+section {
+  margin-bottom: 20px;
+}
+
+.passing {
+  color: green;
+  font-weight: bold;
+}
+
+.failing {
+  color: red;
+  font-weight: bold;
+}
+
+.box {
+  border: 2px solid black;
+  margin-top: 10px;
+}
