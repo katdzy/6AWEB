@@ -1,0 +1,58 @@
+<div class="container">
+
+  <div>
+    <h3>Live Time</h3>
+    <p>Seconds changing in Time: {{ time$ | async | date:'mediumTime' }}</p>
+    <p>Current full date/time: {{ time$ | async | date:'medium' }}</p>
+  </div>
+
+  <hr>
+
+  <h3>Currency Pipe</h3>
+  <p>Default currency: {{ price | currency }}</p>
+  <p>PHP (symbol): {{ price | currency:'PHP ':'symbol':'1.0-0' }}</p>
+  <p>INR: {{ price | currency:'INR' }}</p>
+  <p>USD with 2 decimals: {{ price | currency:'USD ':'symbol':'1.2-2' }}</p>
+
+  <hr>
+
+  <h3>Slice Pipe - Fruits Array</h3>
+  <p>Full array: {{ Fruits }}</p>
+  <p>Negative index (last 2): {{ Fruits | slice:-2 }}</p>
+  <p>Start index 2: {{ Fruits | slice:2 }}</p>
+  <p>Start 1 to end 4: {{ Fruits | slice:1:4 }}</p>
+  <p>Negative start & end: {{ Fruits | slice:-4:-2 }}</p>
+
+  <hr>
+
+  <h3>Number / Decimal Formatting</h3>
+  <div style="text-align:center">
+    <p>decimalNum1 (default): {{ decimalNum1 }}</p>
+    <p>3.1 format: {{ decimalNum1 | number:'3.1' }}</p>
+    <p>2.1-4 format: {{ decimalNum1 | number:'2.1-4' }}</p>
+    <p>With thousand separator: {{ decimalNum1 | number:'1.2-2' }}</p>
+  </div>
+
+  <hr>
+
+  <h3>Additional Useful Pipes</h3>
+
+  <div>
+    <h4>PercentPipe</h4>
+    <p>Success rate: {{ successRate | percent }}</p>
+    <p>With 1 decimal: {{ successRate | percent:'1.1-1' }}</p>
+    <p>Small value: {{ tinyValue | percent:'1.2-3' }}</p>
+  </div>
+
+  <div>
+    <h4>TitleCasePipe</h4>
+    <p>{{ randomText | titlecase }}</p>
+    <p>{{ componentName | titlecase }}</p>
+  </div>
+
+  <div>
+    <h4>JsonPipe (debugging)</h4>
+    <pre>{{ user | json }}</pre>
+  </div>
+
+</div>
