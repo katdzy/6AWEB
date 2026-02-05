@@ -1,0 +1,47 @@
+<div class="container">
+  <!-- Welcome Section -->
+  <section class="welcome-section">
+    <div class="welcome-content">
+      <h1 class="welcome-title">Welcome to Our Community</h1>
+      <p class="welcome-description">
+        Join thousands of members sharing ideas, insights, and inspiration.
+        Discover the latest posts, connect with like-minded individuals, and
+        be part of something extraordinary.
+      </p>
+    </div>
+  </section>
+
+  <!-- Latest Posts Section -->
+  <h2>Latest Posts</h2>
+
+  <div class="post-grid" *ngIf="latestPosts$ | async as posts; else loading">
+    <article class="post-card" *ngFor="let post of posts">
+      <h3>{{ post.title }}</h3>
+      <p class="post-body">{{ post.body }}</p>
+
+      <div class="tags">
+        <span class="tag-badge" *ngFor="let tag of post.tags">
+          #{{ tag }}
+        </span>
+      </div>
+
+      <footer class="post-meta">
+        <div class="stats">
+          <span>👍 {{ post.reactions.likes }}</span>
+          <span>👎 {{ post.reactions.dislikes }}</span>
+          <span>👁️ {{ post.views }}</span>
+        </div>
+        <small class="author-info">
+          By {{ post.author }} • {{ post.createdAt | date:'shortTime' }}
+        </small>
+      </footer>
+    </article>
+  </div>
+
+  <ng-template #loading>
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading posts...</p>
+    </div>
+  </ng-template>
+</div>

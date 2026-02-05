@@ -1,0 +1,40 @@
+<div class="about-container">
+  <header>
+    <h1>{{ portalName | uppercase }}</h1>
+    <p class="subtitle">Connect. Share. Inspire.</p>
+  </header>
+
+  <hr />
+
+  <section class="content">
+    <h2>Our Community</h2>
+    <p>
+      Welcome to the <strong>{{ portalName }}</strong>, a global space where voices
+      from all walks of life converge. Whether you're here to share a personal
+      story, discuss history, or dive into the latest trends, our platform
+      is built to amplify your thoughts.
+    </p>
+
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-label">Total Stories</span>
+        <strong>30+</strong>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Active Creators</span>
+        <strong>24+</strong>
+      </div>
+    </div>
+
+    <div class="status-box">
+      <h3>Community Pulse</h3>
+      <p>Latest Feed Update: <strong>{{ currentTime | date:'medium' }}</strong></p>
+      <p>Membership: <strong>Free & Open Access</strong></p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 {{ portalName }} Community Hub</p>
+  </footer>
+</div>
+

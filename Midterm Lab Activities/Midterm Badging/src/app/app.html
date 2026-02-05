@@ -1,0 +1,24 @@
+<nav class="main-nav">
+  <div class="nav-container">
+    <div class="brand">
+      <span class="brand-text">The Net Community</span>
+    </div>
+
+    <div class="nav-links">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+      <a routerLink="/about" routerLinkActive="active">About</a>
+      <a routerLink="/service" routerLinkActive="active">Services</a>
+      <a routerLink="/contact" routerLinkActive="active">Contact</a>
+    </div>
+
+    <button class="mobile-toggle" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+<main>
+  <router-outlet></router-outlet>
+</main>
