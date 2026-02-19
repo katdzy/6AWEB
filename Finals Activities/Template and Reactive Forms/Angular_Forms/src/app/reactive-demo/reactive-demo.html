@@ -1,0 +1,73 @@
+<div class="card">
+  <h2>Account Registration</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label>Username</label>
+      <input class="input" placeholder="Enter username" formControlName="username" />
+      @if (isInvalid('username')) { <small class="error">4-12 chars (letters/numbers/_)</small> }
+    </div>
+
+    <div class="form-group">
+      <label>Email Address</label>
+      <input class="input" type="email" placeholder="email@example.com" formControlName="email" />
+      @if (isInvalid('email')) { <small class="error">Enter a valid email</small> }
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input class="input" type="password" placeholder="••••••••" formControlName="password" />
+      @if (isInvalid('password')) { <small class="error">8+ chars, upper, lower, & number</small> }
+    </div>
+
+    <div class="form-group">
+      <label>User Role</label>
+      <select class="input" formControlName="role">
+        @for (r of roles; track r) { <option [value]="r">{{ r }}</option> }
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Gender</label>
+      <div class="radio-group">
+        <label><input type="radio" value="Male" formControlName="gender"> Male</label>
+        <label><input type="radio" value="Female" formControlName="gender"> Female</label>
+        <label><input type="radio" value="Other" formControlName="gender"> Other</label>
+      </div>
+    </div>
+
+    <div class="form-group checkbox-group">
+      <label class="switch">
+        <input type="checkbox" formControlName="isPermanent">
+        <span class="slider"></span>
+      </label>
+      <span>Permanent Staff Status</span>
+    </div>
+
+    <div class="form-group">
+      <label>Notes</label>
+      <textarea class="input" rows="3" placeholder="Additional details..." formControlName="notes"></textarea>
+    </div>
+
+    <button class="btn" type="submit" [disabled]="form.invalid">Create Account</button>
+    @if (submitted) {
+      <button class="btn" type="button" (click)="resetForm()" style="background: #666; margin-top: 10px;">Reset Form</button>
+    }
+  </form>
+</div>
+
+@if (submitted && submittedData) {
+  <div class="card" style="margin-top: 20px; border-left: 5px solid #111;">
+    <h3 style="margin-bottom: 20px;">Account Created!</h3>
+    <div style="font-size: 0.9rem; line-height: 1.6;">
+      <p><strong>Username:</strong> {{ submittedData.username }}</p>
+      <p><strong>Email:</strong> {{ submittedData.email }}</p>
+      <p><strong>Role:</strong> {{ submittedData.role }}</p>
+      <p><strong>Gender:</strong> {{ submittedData.gender }}</p>
+      <p><strong>Status:</strong> {{ submittedData.status }}</p>
+      @if (submittedData.notes) {
+        <p><strong>Notes:</strong> {{ submittedData.notes }}</p>
+      }
+    </div>
+  </div>
+}

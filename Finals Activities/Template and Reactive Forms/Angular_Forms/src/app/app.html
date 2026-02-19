@@ -1,0 +1,24 @@
+<header class="navbar">
+  <nav class="nav-container">
+    <div class="logo">Angular Forms</div>
+    <div class="nav-links">
+      <a routerLink="/"
+         routerLinkActive="active-link"
+         [routerLinkActiveOptions]="{exact: true}">
+         Template-Driven Form
+      </a>
+      <a routerLink="/reactive-demo"
+         routerLinkActive="active-link">
+         Reactive Form
+      </a>
+      <a routerLink="/custom-form"
+         routerLinkActive="active-link">
+         Custom Form
+      </a>
+    </div>
+  </nav>
+</header>
+
+<main class="content-area">
+  <router-outlet></router-outlet>
+</main>
