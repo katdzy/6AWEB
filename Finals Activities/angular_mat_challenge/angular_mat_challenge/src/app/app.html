@@ -1,0 +1,248 @@
+<div class="page-wrapper">
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-content">
+      <div class="header-brand">
+        <mat-icon class="brand-icon">event</mat-icon>
+        <div>
+          <span class="brand-name">TechConnect</span>
+          <span class="brand-sub">Event Registration Portal</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <mat-icon class="theme-icon">{{ isDarkMode() ? 'dark_mode' : 'light_mode' }}</mat-icon>
+        <mat-slide-toggle
+          id="theme-toggle"
+          color="primary"
+          [checked]="isDarkMode()"
+          (change)="toggleTheme()"
+          matTooltip="{{ isDarkMode() ? 'Switch to Light Mode' : 'Switch to Dark Mode' }}"
+        >
+          <span class="toggle-label">{{ isDarkMode() ? 'Dark' : 'Light' }}</span>
+        </mat-slide-toggle>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <mat-icon>stars</mat-icon> 2026 Edition
+      </div>
+      <h1 class="hero-title">Register for the Event</h1>
+      <p class="hero-subtitle">Join thousands of developers at the most anticipated tech gathering of the year.</p>
+    </div>
+  </div>
+
+  <!-- Form Card -->
+  <main class="form-container">
+    <mat-card class="registration-card" appearance="outlined">
+      <mat-card-header class="card-header">
+        <mat-card-title>
+          <mat-icon color="primary">how_to_reg</mat-icon>
+          Attendee Registration
+        </mat-card-title>
+        <mat-card-subtitle>Fill in your details to secure your spot</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-divider></mat-divider>
+
+      <mat-card-content>
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" novalidate>
+
+          <!-- Section: Personal Info -->
+          <div class="form-section">
+            <h3 class="section-title">
+              <mat-icon>person</mat-icon> Personal Information
+            </h3>
+
+            <div class="form-row">
+              <!-- Full Name -->
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Full Name</mat-label>
+                <mat-icon matPrefix>badge</mat-icon>
+                <input matInput id="fullName" formControlName="fullName" placeholder="e.g. Jane Doe" />
+                @if (f['fullName'].touched && f['fullName'].hasError('required')) {
+                  <mat-error>Full name is required.</mat-error>
+                } @else if (f['fullName'].touched && f['fullName'].hasError('minlength')) {
+                  <mat-error>Name must be at least 2 characters.</mat-error>
+                }
+              </mat-form-field>
+
+              <!-- Email -->
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Email Address</mat-label>
+                <mat-icon matPrefix>alternate_email</mat-icon>
+                <input matInput id="email" type="email" formControlName="email" placeholder="you@example.com" />
+                @if (f['email'].touched && f['email'].hasError('required')) {
+                  <mat-error>Email is required.</mat-error>
+                } @else if (f['email'].touched && f['email'].hasError('email')) {
+                  <mat-error>Please enter a valid email address.</mat-error>
+                }
+              </mat-form-field>
+            </div>
+
+            <div class="form-row">
+              <!-- Password -->
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Password</mat-label>
+                <mat-icon matPrefix>lock</mat-icon>
+                <input
+                  matInput
+                  id="password"
+                  [type]="showPassword() ? 'text' : 'password'"
+                  formControlName="password"
+                  placeholder="e.g. MyPass123"
+                />
+                <button
+                  mat-icon-button
+                  matSuffix
+                  type="button"
+                  (click)="togglePasswordVisibility()"
+                  [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'"
+                >
+                  <mat-icon>{{ showPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+                @if (f['password'].touched && getPasswordError()) {
+                  <mat-error>{{ getPasswordError() }}</mat-error>
+                }
+                <mat-hint>Min 8 chars, start with a letter, alphanumeric only</mat-hint>
+              </mat-form-field>
+
+              <!-- Date of Birth -->
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Date of Birth</mat-label>
+                <mat-icon matPrefix>cake</mat-icon>
+                <input
+                  matInput
+                  id="dateOfBirth"
+                  [matDatepicker]="dobPicker"
+                  [max]="maxDob"
+                  [min]="minDob"
+                  formControlName="dateOfBirth"
+                  placeholder="MM/DD/YYYY"
+                  readonly
+                />
+                <mat-datepicker-toggle matIconSuffix [for]="dobPicker"></mat-datepicker-toggle>
+                <mat-datepicker #dobPicker startView="multi-year"></mat-datepicker>
+                @if (f['dateOfBirth'].touched && getDobError()) {
+                  <mat-error>{{ getDobError() }}</mat-error>
+                }
+                <mat-hint>Must be born in 2006 or earlier</mat-hint>
+              </mat-form-field>
+            </div>
+
+            <!-- Phone -->
+            <mat-form-field appearance="outline" class="form-field full-width">
+              <mat-label>Phone Number <span class="optional-tag">(optional)</span></mat-label>
+              <mat-icon matPrefix>phone</mat-icon>
+              <input matInput id="phone" formControlName="phone" placeholder="+1 555 000 0000" />
+              @if (f['phone'].touched && f['phone'].hasError('pattern')) {
+                <mat-error>Please enter a valid phone number (7–15 digits).</mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <!-- Section: Event Details -->
+          <div class="form-section">
+            <h3 class="section-title">
+              <mat-icon>event_available</mat-icon> Event Details
+            </h3>
+
+            <div class="form-row">
+              <!-- Event Selection -->
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Select Event</mat-label>
+                <mat-icon matPrefix>confirmation_number</mat-icon>
+                <mat-select id="event" formControlName="event">
+                  @for (ev of events; track ev.value) {
+                    <mat-option [value]="ev.value">{{ ev.label }}</mat-option>
+                  }
+                </mat-select>
+                @if (f['event'].touched && f['event'].hasError('required')) {
+                  <mat-error>Please select an event.</mat-error>
+                }
+              </mat-form-field>
+
+              <!-- T-Shirt Size -->
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>T-Shirt Size <span class="optional-tag">(optional)</span></mat-label>
+                <mat-icon matPrefix>checkroom</mat-icon>
+                <mat-select id="tShirtSize" formControlName="tShirtSize">
+                  @for (size of tShirtSizes; track size) {
+                    <mat-option [value]="size">{{ size }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <!-- Gender -->
+            <div class="radio-group-wrapper">
+              <label class="radio-group-label">
+                <mat-icon>wc</mat-icon> Gender
+              </label>
+              <mat-radio-group id="gender" formControlName="gender" class="radio-group" aria-label="Select gender">
+                <mat-radio-button value="male">Male</mat-radio-button>
+                <mat-radio-button value="female">Female</mat-radio-button>
+                <mat-radio-button value="nonbinary">Non-binary</mat-radio-button>
+                <mat-radio-button value="prefer_not">Prefer not to say</mat-radio-button>
+              </mat-radio-group>
+              @if (f['gender'].touched && f['gender'].hasError('required')) {
+                <mat-error class="radio-error">Please select a gender option.</mat-error>
+              }
+            </div>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <!-- Section: Agreement -->
+          <div class="form-section agreement-section">
+            <mat-checkbox id="agreeToTerms" formControlName="agreeToTerms" color="primary">
+              I agree to the <a href="#" class="terms-link">Terms & Conditions</a> and
+              <a href="#" class="terms-link">Privacy Policy</a> of TechConnect 2026.
+            </mat-checkbox>
+            @if (f['agreeToTerms'].touched && f['agreeToTerms'].hasError('required')) {
+              <mat-error class="checkbox-error">You must agree to the terms to register.</mat-error>
+            }
+          </div>
+
+          <!-- Submit -->
+          <div class="submit-section">
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              id="submit-btn"
+              class="submit-btn"
+              [disabled]="isSubmitting()"
+            >
+              @if (isSubmitting()) {
+                <ng-container>
+                  <mat-icon class="spin-icon">autorenew</mat-icon>
+                  Submitting...
+                </ng-container>
+              } @else {
+                <ng-container>
+                  <mat-icon>send</mat-icon>
+                  Register Now
+                </ng-container>
+              }
+            </button>
+            <button mat-stroked-button type="button" class="reset-btn" (click)="registrationForm.reset(); submitted.set(false)">
+              <mat-icon>refresh</mat-icon> Reset
+            </button>
+          </div>
+
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <p class="footer-note">
+      <mat-icon class="footer-icon">security</mat-icon>
+      Your information is secured and will only be used for event management purposes.
+    </p>
+  </main>
+</div>

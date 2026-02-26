@@ -1,0 +1,36 @@
+@use '@angular/material' as mat;
+
+// ── Light Theme (default) ────────────────────────────────────────────────────
+html {
+  height: 100%;
+
+  @include mat.theme((color: (primary: mat.$violet-palette,
+        tertiary: mat.$azure-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    ));
+}
+
+// ── Dark Theme (applied when body.dark-theme is present) ─────────────────────
+body.dark-theme {
+  color-scheme: dark;
+
+  @include mat.theme((color: (theme-type: dark,
+        primary: mat.$violet-palette,
+        tertiary: mat.$azure-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    ));
+}
+
+body {
+  color-scheme: light;
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+  margin: 0;
+  height: 100%;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
