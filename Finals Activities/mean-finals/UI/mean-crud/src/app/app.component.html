@@ -1,0 +1,47 @@
+<div class="app">
+
+  <h1>🎵 Mansanas Music</h1>
+
+  <div class="form-card">
+
+  <input [(ngModel)]="song.title" placeholder="🎵 Song Title">
+  <input [(ngModel)]="song.artist" placeholder="👤 Artist">
+  <input [(ngModel)]="song.year" placeholder="📅 Year">
+
+  <button *ngIf="!isEditing" (click)="addSong()" class="add">
+    Add Song
+  </button>
+
+  <button *ngIf="isEditing" (click)="updateSong()" class="update">
+    Update
+  </button>
+
+  <button *ngIf="isEditing" (click)="clearForm()" class="cancel">
+    Cancel
+  </button>
+
+</div>
+
+
+  <div class="songs">
+
+    <div class="song-card" *ngFor="let s of songs">
+
+  <div class="cover"></div>
+
+  <div class="song-info">
+    <h3>{{s.title}}</h3>
+    <p>{{s.artist}}</p>
+    <span>{{s.year}}</span>
+  </div>
+
+  <div class="actions">
+    <button class="edit" (click)="selectSong(s)">Edit</button>
+    <button class="delete" (click)="deleteSong(s.id)">Delete</button>
+  </div>
+
+</div>
+
+  </div>
+
+</div>
